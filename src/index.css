@@ -1,0 +1,79 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 45 30% 98%;
+    --foreground: 110 10% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 110 10% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 110 10% 20%;
+
+    --primary: 115 25% 35%;
+    --primary-foreground: 355 100% 100%;
+
+    --secondary: 40 30% 96%;
+    --secondary-foreground: 110 10% 20%;
+
+    --muted: 40 20% 96%;
+    --muted-foreground: 30 10% 40%;
+
+    --accent: 45 30% 75%;
+    --accent-foreground: 110 10% 20%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 45 20% 90%;
+    --input: 45 20% 90%;
+    --ring: 115 25% 35%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply container mx-auto px-4 md:px-8 max-w-7xl;
+  }
+  
+  .btn-primary {
+    @apply bg-trupahadi-green text-white hover:bg-trupahadi-green-dark transition duration-300 px-6 py-3 rounded-md font-medium;
+  }
+  
+  .section-title {
+    @apply text-3xl md:text-4xl font-serif font-semibold text-trupahadi-green mb-2;
+  }
+  
+  .section-subtitle {
+    @apply text-lg text-muted-foreground mb-8 max-w-2xl mx-auto;
+  }
+}
