@@ -23,7 +23,7 @@ const Directors = () => {
     >
       <motion.div className="container-custom" variants={itemVariants}>
         <div className="text-center mb-16">
-          <motion.h2 className="section-title" variants={itemVariants}>Meet Our Directors</motion.h2>
+          <motion.h2 className="section-title" variants={itemVariants}>Meet Our Director</motion.h2>
           <motion.p className="section-subtitle" variants={itemVariants}>
             Guided by experienced leadership committed to our vision of sustainability and excellence.
           </motion.p>
