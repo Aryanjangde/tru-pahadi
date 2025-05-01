@@ -87,7 +87,7 @@ const Products = () => {
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
-              <div className="p-6 flex flex-col flex-grow">
+              <div className="p-6 flex flex-col flex-grow justify-between">
                 <motion.div
                   className="flex items-center mb-2"
                   whileHover={{ scale: 1.05 }}
@@ -103,7 +103,7 @@ const Products = () => {
                 <p className="text-gray-700 mb-4 leading-relaxed">{product.description}</p>
                 <div className="mb-6">
                   <h4 className="font-medium text-gray-800 mb-2">Benefits:</h4>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-3">
                     {product.benefits.map((benefit, index) => (
                       <motion.span
                         key={index}
@@ -114,16 +114,6 @@ const Products = () => {
                       </motion.span>
                     ))}
                   </div>
-                </div>
-                <div className="mt-auto">
-                  <motion.button
-                    className="w-full flex items-center justify-center bg-trupahadi-green text-white hover:bg-trupahadi-green-dark transition duration-300 py-2 rounded-md shadow-md"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <ShoppingCart size={16} className="mr-2" />
-                    Coming Soon
-                  </motion.button>
                 </div>
               </div>
             </motion.div>
