@@ -9,6 +9,7 @@ import Products from "@/components/Products";
 import Investors from "@/components/Investors";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import Reviews from "@/components/Reviews";
 
 const Index = () => {
   return (
@@ -17,6 +18,7 @@ const Index = () => {
       <Hero />
       <About />
       <Products />
+      <Reviews/>
       <Founder />
       <Directors />
       <Mission />

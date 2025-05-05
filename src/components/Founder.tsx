@@ -1,5 +1,6 @@
-import { BookOpen, Award, Users } from 'lucide-react';
+import { BookOpen, Award, Users, Play, X } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -12,6 +13,11 @@ const itemVariants = {
 };
 
 const Founder = () => {
+  const [videoOpen, setVideoOpen] = useState(false);
+  
+  // Instagram-like story colors
+  const storyGradient = "bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-500";
+
   return (
     <motion.section
       id="founder"
@@ -67,21 +73,77 @@ const Founder = () => {
 
           <motion.div className="order-1 lg:order-2 flex justify-center" variants={itemVariants}>
             <div className="relative">
+              {/* Instagram stories-like ring */}
+              <motion.div 
+                className={`absolute -inset-3 ${storyGradient} rounded-full z-10 cursor-pointer`}
+                initial={{ rotate: 0 }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                onClick={() => setVideoOpen(true)}
+              ></motion.div>
+              
               <motion.div
                 className="w-72 h-72 md:w-80 md:h-80 rounded-full bg-trupahadi-earth opacity-20 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-ping-slow"
               ></motion.div>
-              <motion.img
-                src="bhaiya.jpeg"
-                alt="Founder Parth Vardhan Saxena"
-                className="w-64 h-64 md:w-72 md:h-72 object-cover rounded-full border-8 border-white shadow-xl relative z-10"
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-              />
+              
+              <motion.div 
+                className="relative z-20 cursor-pointer"
+                onClick={() => setVideoOpen(true)}
+              >
+                <motion.img
+                  src="founder2.jpg"
+                  alt="Founder Parth Vardhan Saxena"
+                  className="w-64 h-64 md:w-72 md:h-72 object-cover rounded-full border-8 border-white shadow-xl relative z-10"
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ delay: 0.4, duration: 0.6 }}
+                />
+                <motion.div 
+                  className="absolute inset-0 bg-black bg-opacity-20 rounded-full flex items-center justify-center"
+                  whileHover={{ opacity: 0.4 }}
+                  initial={{ opacity: 0.2 }}
+                >
+                  <Play size={40} className="text-white" fill="white" />
+                </motion.div>
+              </motion.div>
             </div>
           </motion.div>
         </div>
       </motion.div>
+
+      {/* Video Modal */}
+      {videoOpen && (
+        <motion.div 
+          className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.button 
+            className="absolute top-6 right-6 text-white p-2 rounded-full bg-gray-800 hover:bg-gray-700"
+            onClick={() => setVideoOpen(false)}
+            whileHover={{ scale: 1.1 }}
+          >
+            <X size={24} />
+          </motion.button>
+          
+          <motion.div 
+            className="w-full max-w-4xl aspect-video bg-black rounded-lg overflow-hidden"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+          >
+            <video 
+              className="w-full h-full object-cover"
+              controls
+              autoPlay
+              src="Ankurrrr.mp4"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </motion.div>
+        </motion.div>
+      )}
     </motion.section>
   );
 };
