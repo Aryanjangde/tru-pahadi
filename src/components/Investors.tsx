@@ -32,7 +32,7 @@ const Investors = () => {
     {
       name: 'Mr. Ajay Gupta',
       title: 'Founder, Bachpan Play School & Academic Heights Public School',
-      img: 'ajay.JPG',
+      img: '1.1.png',
       desc: `Ajay Gupta, the Founder of Bachpan Play School and Academic Heights Public School, is a pioneer in education with a strong commitment to societal growth. His leadership and experience in scaling ventures provide Trupahadi with strategic direction and business expansion insights.`
     }
   ];
