@@ -1,7 +1,7 @@
-
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const navVariants = {
   hidden: { y: -50, opacity: 0 },
@@ -33,6 +33,7 @@ const Navbar = () => {
     { href: '#founder', label: "Founder's Story" },
     { href: '#mission', label: 'Mission & Vision' },
     { href: '#investors', label: 'Investor Corner' },
+    { href: '/corporate-gifting', label: 'Corporate Gifting' },
     { href: '#contact', label: 'Contact Us', primary: true }
   ];
 
@@ -45,7 +46,7 @@ const Navbar = () => {
     >
       <div className="container-custom flex justify-between items-center">
         <motion.a
-          href="#"
+          href="/"
           className="text-2xl font-serif font-bold text-trupahadi-green"
           whileHover={{ scale: 1.1 }}
           transition={{ type: 'spring', stiffness: 300 }}
