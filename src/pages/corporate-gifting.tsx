@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Download, Send, Leaf, Award } from 'lucide-react';
+import { Download, Send, Leaf, Award, Copy, Check } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useEffect, useState } from 'react';
@@ -37,14 +37,8 @@ const cardVariants = {
 
 // Client data - replace with actual client data
 const clients = [
-  { name: "Tata Consultancy Services", logo: "/images/clients/tcs.png" },
-  { name: "Infosys", logo: "/images/clients/infosys.png" },
-  { name: "Wipro", logo: "/images/clients/wipro.png" },
-  { name: "HCL Technologies", logo: "/images/clients/hcl.png" },
-  { name: "Tech Mahindra", logo: "/images/clients/tech-mahindra.png" },
-  { name: "Larsen & Toubro", logo: "/images/clients/lnt.png" },
-  { name: "Reliance Industries", logo: "/images/clients/reliance.png" },
-  { name: "Mahindra Group", logo: "/images/clients/mahindra.png" },
+  { name: "Balaji Group", logo: "balajiGroup.png" },
+  { name: "Rishihood University", logo: "rishihood-logo-light.png" },
 ];
 
 const products = [
@@ -85,6 +79,29 @@ const products = [
 
 const CorporateGifting = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const [showContactInfo, setShowContactInfo] = useState(false);
+  const [copiedField, setCopiedField] = useState<string | null>(null);
+
+  const handleCopy = (text: string, field: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedField(field);
+    setTimeout(() => setCopiedField(null), 2000);
+  };
+
+  const handleDownloadCatalogue = () => {
+    // Create a link element
+    const link = document.createElement('a');
+    // Set the href to the PDF file
+    link.href = '/product-catalog.pdf';
+    // Set the download attribute to force download
+    link.download = 'TruPahadi-Product-Catalog.pdf';
+    // Append to the document
+    document.body.appendChild(link);
+    // Trigger the click event
+    link.click();
+    // Clean up
+    document.body.removeChild(link);
+  };
 
   return (
     <div className="min-h-screen">
@@ -110,26 +127,10 @@ const CorporateGifting = () => {
           <motion.div 
             className="mb-20 overflow-hidden"
             variants={itemVariants}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
           >
             <h2 className="text-3xl font-serif font-semibold text-center mb-12">Our Trusted Clients</h2>
             <div className="relative">
-              <motion.div
-                className="flex space-x-12"
-                animate={{
-                  x: isHovered ? "0%" : "-50%",
-                }}
-                transition={{
-                  x: {
-                    repeat: Infinity,
-                    repeatType: "loop",
-                    duration: 20,
-                    ease: "linear",
-                  },
-                }}
-              >
-                {/* First set of clients */}
+              <div className="flex justify-center space-x-12">
                 {clients.map((client, index) => (
                   <motion.div
                     key={index}
@@ -138,52 +139,34 @@ const CorporateGifting = () => {
                   >
                     <div className="text-center">
                       <div className="h-16 mb-2 flex items-center justify-center">
-                        {/* Replace with actual logo */}
-                        <div className="w-16 h-16 bg-gray-200 rounded-full"></div>
+                        <img 
+                          src={`/${client.logo}`} 
+                          alt={`${client.name} logo`}
+                          className="max-h-full max-w-full object-contain"
+                        />
                       </div>
                       <p className="text-sm font-medium text-gray-700">{client.name}</p>
                     </div>
                   </motion.div>
                 ))}
-                {/* Duplicate set for seamless loop */}
-                {clients.map((client, index) => (
-                  <motion.div
-                    key={`duplicate-${index}`}
-                    className="flex-shrink-0 w-48 h-32 bg-white rounded-lg shadow-md p-4 flex items-center justify-center"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <div className="text-center">
-                      <div className="h-16 mb-2 flex items-center justify-center">
-                        {/* Replace with actual logo */}
-                        <div className="w-16 h-16 bg-gray-200 rounded-full"></div>
-                      </div>
-                      <p className="text-sm font-medium text-gray-700">{client.name}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
+              </div>
             </div>
           </motion.div>
 
           {/* Corporate Experiences */}
           <motion.div className="mb-20" variants={itemVariants}>
             <h2 className="text-3xl font-serif font-semibold text-center mb-12">Corporate Experiences</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {[
                 {
                   title: "Festive Sweets Boxes",
                   description: "Curated collections of premium sweets perfect for festive celebrations and corporate events.",
-                  image: "/images/festive-box.jpg"
+                  image: "festiveBox.jpg"
                 },
                 {
-                  title: "Office Parties",
-                  description: "Delight your team with our specially designed sweet platters and snack boxes.",
-                  image: "/images/office-party.jpg"
-                },
-                {
-                  title: "Client Gifting",
+                  title: "Event and Celebration",
                   description: "Make a lasting impression with our premium gift boxes featuring authentic Indian delicacies.",
-                  image: "/images/client-gift.jpg"
+                  image: "eventAndCeleb.jpg"
                 }
               ].map((item, index) => (
                 <motion.div
@@ -192,8 +175,12 @@ const CorporateGifting = () => {
                   whileHover={{ y: -5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="h-48 bg-gray-200">
-                    {/* Add image here */}
+                  <div className="h-64 relative overflow-hidden">
+                    <img 
+                      src={`/${item.image}`}
+                      alt={item.title}
+                      className="absolute inset-0 w-full h-full object-cover object-center"
+                    />
                   </div>
                   <div className="p-6">
                     <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
@@ -209,7 +196,10 @@ const CorporateGifting = () => {
             <h2 className="text-3xl font-serif font-semibold text-center mb-12">Our Products</h2>
             <ProductCarousel />
             <div className="text-center mt-8">
-              <button className="inline-flex items-center gap-2 bg-trupahadi-green text-white px-6 py-3 rounded-full hover:bg-trupahadi-green-dark transition-colors">
+              <button 
+                onClick={handleDownloadCatalogue}
+                className="inline-flex items-center gap-2 bg-trupahadi-green text-white px-6 py-3 rounded-full hover:bg-trupahadi-green-dark transition-colors"
+              >
                 <Download size={20} />
                 Download Product Catalogue
               </button>
@@ -223,10 +213,64 @@ const CorporateGifting = () => {
               We've made it a joy to personalize a gift from TruPahadi just the way you want. Made to order to celebrate your special moments and milestone occasions, we walk every mile of the way with you.
             </p>
             <div className="text-center">
-              <button className="inline-flex items-center gap-2 bg-trupahadi-green text-white px-6 py-3 rounded-full hover:bg-trupahadi-green-dark transition-colors">
-                <Send size={20} />
-                Contact Us for Customization
-              </button>
+              {!showContactInfo ? (
+                <button 
+                  onClick={() => setShowContactInfo(true)}
+                  className="inline-flex items-center gap-2 bg-trupahadi-green text-white px-6 py-3 rounded-full hover:bg-trupahadi-green-dark transition-colors"
+                >
+                  <Send size={20} />
+                  Contact Us for Customization
+                </button>
+              ) : (
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="space-y-4"
+                >
+                  <div className="flex flex-col items-center gap-4 text-gray-700">
+                    <div className="flex items-center gap-3">
+                      <p className="flex items-center gap-2">
+                        <span className="font-semibold">Phone:</span>
+                        <a href="tel:+918791899488" className="hover:text-trupahadi-green">+91 87918 99488</a>
+                      </p>
+                      <button
+                        onClick={() => handleCopy('+918791899488', 'phone')}
+                        className="p-1.5 rounded-full hover:bg-gray-100 transition-colors"
+                        title="Copy phone number"
+                      >
+                        {copiedField === 'phone' ? (
+                          <Check size={16} className="text-green-500" />
+                        ) : (
+                          <Copy size={16} className="text-gray-500" />
+                        )}
+                      </button>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <p className="flex items-center gap-2">
+                        <span className="font-semibold">Email:</span>
+                        <a href="mailto:parthvardhan30@gmail.com" className="hover:text-trupahadi-green">parthvardhan30@gmail.com</a>
+                      </p>
+                      <button
+                        onClick={() => handleCopy('parthvardhan30@gmail.com', 'email')}
+                        className="p-1.5 rounded-full hover:bg-gray-100 transition-colors"
+                        title="Copy email"
+                      >
+                        {copiedField === 'email' ? (
+                          <Check size={16} className="text-green-500" />
+                        ) : (
+                          <Copy size={16} className="text-gray-500" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                  <button 
+                    onClick={() => setShowContactInfo(false)}
+                    className="text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-full transition-colors"
+                  >
+                    Hide Contact Info
+                  </button>
+                </motion.div>
+              )}
             </div>
           </motion.div>
 
