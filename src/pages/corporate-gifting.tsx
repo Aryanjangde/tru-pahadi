@@ -119,7 +119,7 @@ const CorporateGifting = () => {
               Corporate Gifting
             </motion.h1>
             <motion.p className="text-xl text-gray-700 max-w-3xl mx-auto" variants={itemVariants}>
-              Elevate your corporate relationships with our premium selection of authentic Indian sweets and delicacies.
+              Elevate your corporate relationships with our premium selection of authentic Indian millets sweets and delicacies.
             </motion.p>
           </div>
 
